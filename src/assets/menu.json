@@ -1,0 +1,33 @@
+{
+    "menu": [
+        {
+            "id": "1",
+            "name": "appstore",
+            "icon": "appstore-o",
+            "submenu": [
+                {
+                    "id": "1-1",
+                    "name": "option-1",
+                    "location": "/appstore/option_1"
+                },
+                {
+                    "id": "1-2",
+                    "name": "option-2",
+                    "location": "/appstore/option_2"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "name": "user",
+            "icon": "user",
+            "location": "/user"
+        },
+        {
+            "id": "3",
+            "name": "setting",
+            "icon": "setting",
+            "location": "/setting"
+        }
+    ]
+}
