@@ -6,6 +6,11 @@
             "icon": "appstore-o",
             "submenu": [
                 {
+                    "id": "1-0",
+                    "name": "query",
+                    "location": "/appstore/query"
+                },
+                {
                     "id": "1-1",
                     "name": "option-1",
                     "location": "/appstore/option_1"

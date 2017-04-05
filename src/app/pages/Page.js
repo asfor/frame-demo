@@ -10,11 +10,7 @@ const {SubMenu, Item} = Menu
 const HEADER_LIST = ['nav 1', 'nav 2', 'nav 3']
 
 export default class Page extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {menu: []}
-        this.renderMenu = this.renderMenu.bind(this)
-    }
+    state = {menu: []}
 
     render() {
         return (
@@ -66,7 +62,7 @@ export default class Page extends React.Component {
      * 渲染侧边栏菜单
      * @return {vDOM} 渲染出来的侧边栏元素
      */
-    renderMenu() {
+    renderMenu = () => {
         return this.state.menu.map(item => {
             if (!item.submenu)
                 return <Item key={item.id}><Link to={item.location}><Icon type={item.icon} />{item.name}</Link></Item>
