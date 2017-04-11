@@ -9,4 +9,15 @@ body, .ant-menu-vertical .ant-menu-item, .ant-menu-inline .ant-menu-item, .ant-m
     float: left;
 }
 
-#page {height: calc(100vh - 64px)}
+#page {
+    height: calc(100vh - 64px);
+
+    .ant-layout-sider-collapsed {
+        .anticon {
+            font-size: 16px;
+            margin-left: 8px;
+        }
+
+        .nav-text, .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {display: none;}
+    }
+}

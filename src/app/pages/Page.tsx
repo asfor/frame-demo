@@ -1,5 +1,5 @@
-import React from 'react'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import * as React from 'react'
+import {HashRouter as Router, Route, Link} from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 import {Layout, Menu, Icon} from 'antd'
 import menu from '../apis/menu'
@@ -9,19 +9,29 @@ const {SubMenu, Item} = Menu
 
 const HEADER_LIST = ['nav 1', 'nav 2', 'nav 3']
 
-export default class Page extends React.Component {
-    state = {menu: []}
+class State {
+    collapsed: boolean
+    mode: 'inline' | 'vertical' | 'horizontal'
+    menu: Array<any>
+}
+
+export default class Page extends React.Component<any, any> {
+    state: State = {
+        collapsed: false,
+        mode: 'inline',
+        menu: []
+    }
 
     render() {
         return (
             <Router history={createBrowserHistory()}>
                 <Layout>
-                    <Layout.Header className="header">
-                        <div id="logo" />
+                    <Layout.Header className='header'>
+                        <div id='logo' />
 
                         <Menu
-                            theme="dark"
-                            mode="horizontal"
+                            theme='dark'
+                            mode='horizontal'
                             defaultSelectedKeys={['0']}
                             style={{lineHeight: 'inherit'}}
                         >
@@ -29,13 +39,17 @@ export default class Page extends React.Component {
                         </Menu>
                     </Layout.Header>
 
-                    <Layout id="page">
+                    <Layout id='page'>
                         <Layout.Sider
+                            collapsible
+                            collapsed={this.state.collapsed}
+                            onCollapse={this.onCollapse}
                             width={200}
                             style={{background: '#fff'}}
                         >
                             <Menu
-                                mode="inline"
+                                theme='dark'
+                                mode={this.state.mode}
                                 style={{ height: '100%' }}
                             >{this.renderMenu()}</Menu>
                         </Layout.Sider>
@@ -50,7 +64,7 @@ export default class Page extends React.Component {
     }
 
     componentWillMount() {
-        menu.get().then(data => {
+        menu.get().then((data: any) => {
             this.setState({
                 ...this.state,
                 menu: data.menu
@@ -65,16 +79,24 @@ export default class Page extends React.Component {
     renderMenu = () => {
         return this.state.menu.map(item => {
             if (!item.submenu)
-                return <Item key={item.id}><Link to={item.location}><Icon type={item.icon} />{item.name}</Link></Item>
+                return <Item key={item.id}><Link to={item.location}><Icon type={item.icon} /><span className="nav-text">{item.name}</span></Link></Item>
             else
                 return (
                     <SubMenu
-                        title={<span><Icon type={item.icon} />{item.name}</span>}
+                        title={<span><Icon type={item.icon} /><span className="nav-text">{item.name}</span></span>}
                         key={item.id}
                     >
                         {item.submenu.map(item => <Item key={item.id}><Link to={item.location}>{item.name}</Link></Item>)}
                     </SubMenu>
                 )
+        })
+    }
+
+    onCollapse = (collapsed) => {
+        this.setState({
+            ...this.state,
+            collapsed,
+            mode: collapsed ? 'vertical' : 'inline'
         })
     }
 }
